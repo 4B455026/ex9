@@ -50,6 +50,44 @@ body {
     text-decoration: none;
 }
 
+/* 所有照片可以點擊 */
+.click-photo,
+.photo-grid img {
+    cursor: pointer;
+}
+
+/* 圖片放大視窗 */
+#imageModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    text-align: center;
+    padding-top: 60px;
+}
+
+#modalImg {
+    max-width: 85%;
+    max-height: 80vh;
+    object-fit: contain;
+    border: 5px solid white;
+    border-radius: 10px;
+}
+
+#imageModal .close {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: white;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 700px) {
     .w3-main {
         margin-left: 20px !important;
@@ -60,14 +98,14 @@ body {
         width: 45%;
     }
 
-    .about-photo {
-        width: 100%;
-        max-width: 250px;
-    }
-
     .about-content {
         flex-direction: column;
         align-items: flex-start !important;
+    }
+
+    .about-photo {
+        width: 100%;
+        max-width: 250px;
     }
 }
 </style>
@@ -77,14 +115,13 @@ body {
 
 <!-- 左側導覽列 -->
 
-<!-- 三條線按鈕 -->
 <button onclick="w3_open()"
 class="w3-button w3-top w3-large"
 style="width:50px;top:0;left:0;background-color:#D8A7A7;color:white;z-index:4;">
 ☰
 </button>
 
-<!-- 關閉按鈕 -->
+<!-- 關閉導覽列按鈕 -->
 <button id="closeBtn" onclick="w3_close()"
 class="w3-button w3-top w3-large"
 style="display:none;width:50px;top:0;left:50px;background-color:#D8A7A7;color:white;z-index:4;">
@@ -126,6 +163,8 @@ id="mySidebar">
 
 <img src="img/04.jpg"
 alt="首頁照片"
+class="click-photo"
+onclick="openImage(this.src)"
 style="width:20%;height:auto;object-fit:contain;">
 
 <h3>電商二甲｜學號：4B455026｜姓名：李佩穎</h3>
@@ -143,7 +182,8 @@ style="width:20%;height:auto;object-fit:contain;">
 
 <img src="img/04.jpg"
 alt="個人照片"
-class="about-photo">
+class="about-photo click-photo"
+onclick="openImage(this.src)">
 
 <div>
 <h3>哈囉！我是佩穎</h3>
@@ -164,11 +204,14 @@ class="about-photo">
 <p>以下是我平常喜歡的事物，透過照片分享我的興趣。</p>
 
 <div class="photo-grid">
-<img src="img/01.jpg" alt="興趣照片一">
-<img src="img/02.jpg" alt="興趣照片二">
-<img src="img/03.jpg" alt="興趣照片三">
-</div>
 
+<img src="img/01.jpg" alt="興趣照片一" onclick="openImage(this.src)">
+
+<img src="img/02.jpg" alt="興趣照片二" onclick="openImage(this.src)">
+
+<img src="img/03.jpg" alt="興趣照片三" onclick="openImage(this.src)">
+
+</div>
 </div>
 
 <!-- 作品集 -->
@@ -182,10 +225,16 @@ class="about-photo">
 
 <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
 
-<img src="img/5111.jpg" alt="作品一"
+<img src="img/5111.jpg"
+alt="作品一"
+class="click-photo"
+onclick="openImage(this.src)"
 style="width:20%;height:200px;object-fit:cover;">
 
-<img src="img/5114.jpg" alt="作品二"
+<img src="img/5114.jpg"
+alt="作品二"
+class="click-photo"
+onclick="openImage(this.src)"
 style="width:20%;height:200px;object-fit:cover;">
 
 </div>
@@ -210,7 +259,10 @@ style="width:20%;height:200px;object-fit:cover;">
 
 <p><i class="fa fa-envelope"></i> Email：4B455026@stust.edu.tw</p>
 
-<img src="img/02.jpg" alt="聯絡照片"
+<img src="img/02.jpg"
+alt="聯絡照片"
+class="click-photo"
+onclick="openImage(this.src)"
 style="width:250px;height:300px;object-fit:cover;">
 
 </div>
@@ -225,16 +277,25 @@ style="margin-top:75px;padding-right:58px">
 
 </div>
 
-<!-- 導覽列控制程式 -->
+<!-- 圖片放大視窗 -->
+<div id="imageModal" onclick="closeImage()">
+
+<span class="close">&times;</span>
+
+<img id="modalImg" src="" alt="放大照片">
+
+</div>
+
+<!-- JavaScript -->
 <script>
 
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-    document.getElementById("closeBtn").style.display = "block";}
+function w3_open() {document.getElementById("mySidebar").style.display = "block";document.getElementById("closeBtn").style.display = "block";}
 
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    document.getElementById("closeBtn").style.display = "none";}
+function w3_close() {document.getElementById("mySidebar").style.display = "none";document.getElementById("closeBtn").style.display = "none";}
+
+function openImage(src) {document.getElementById("imageModal").style.display = "block";document.getElementById("modalImg").src = src;}
+
+function closeImage() {document.getElementById("imageModal").style.display = "none";}
 
 </script>
 
